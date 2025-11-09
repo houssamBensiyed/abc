@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIpQmGYwE4C2B6YcyXKcsEmW9yX1x4Ck0rK0c3FMBtag==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a;
+      color: #f5f5f5;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .product-card {
+      display: flex;
+      background: #101010;
+      border-radius: 24px;
+      overflow: hidden;
+      max-width: 980px;
+      width: 100%;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .product-media {
+      position: relative;
+      flex: 1 1 50%;
+      overflow: hidden;
+    }
+
+    .product-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .thumbnail-strip {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    .thumbnail-strip img {
+      width: 72px;
+      height: 48px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid #ffffff44;
+      transition: transform 0.2s ease, border-color 0.2s ease;
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
+    }
+
+    .thumbnail-strip img:hover {
+      transform: translateY(-4px);
+      border-color: #ffb400;
+    }
+
+    .product-content {
+      flex: 1 1 50%;
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .category-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      color: #101010;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      border-radius: 20px;
+      padding: 8px 16px;
+      width: fit-content;
+    }
+
+    .category-badge i {
+      color: #f04d23;
+    }
+
+    .product-title {
+      font-size: 34px;
+      font-weight: 800;
+      line-height: 1.2;
+    }
+
+    .product-price {
+      font-size: 48px;
+      font-weight: 800;
+      color: #f5c76b;
+    }
+
+    .product-description {
+      font-size: 15px;
+      line-height: 1.7;
+      color: #d1d1d1;
+      max-width: 400px;
+    }
+
+    .section-heading {
+      font-size: 14px;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #9f9f9f;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .size-selector {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .size-option {
+      min-width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #f5f5f5;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+
+    .size-option.active {
+      background: #f04d23;
+      border-color: #f04d23;
+    }
+
+    .size-option:hover {
+      border-color: #f04d23;
+    }
+
+    .quantity-control {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quantity-button {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: #1a1a1a;
+      border: 1px solid #2a2a2a;
+      color: #f5f5f5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: border-color 0.2s ease, background 0.2s ease;
+    }
+
+    .quantity-button:hover {
+      border-color: #f04d23;
+    }
+
+    .quantity-value {
+      width: 56px;
+      text-align: center;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .primary-action {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      background: #fbb040;
+      color: #101010;
+      font-weight: 700;
+      font-size: 16px;
+      border: none;
+      border-radius: 16px;
+      padding: 16px 32px;
+      cursor: pointer;
+      box-shadow: 0 18px 28px rgba(251, 176, 64, 0.35);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .primary-action:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 22px 34px rgba(251, 176, 64, 0.45);
+    }
+
+    @media (max-width: 960px) {
+      body {
+        padding: 24px;
+      }
+
+      .product-card {
+        flex-direction: column;
+      }
+
+      .product-content {
+        padding: 36px;
+      }
+
+      .product-description {
+        max-width: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <article class="product-card">
+    <figure class="product-media">
+      <img src="https://images.unsplash.com/photo-1466637574441-749b8f19452f?auto=format&fit=crop&w=1200&q=80" alt="Mushroom risotto" />
+      <div class="thumbnail-strip">
+        <img src="https://images.unsplash.com/photo-1482049016688-2d3e1b311543?auto=format&fit=crop&w=400&q=80" alt="Fresh ingredients" />
+        <img src="https://images.unsplash.com/photo-1481070555726-e2fe8357725c?auto=format&fit=crop&w=400&q=80" alt="Chef plating dish" />
+        <img src="https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?auto=format&fit=crop&w=400&q=80" alt="Risotto ingredients" />
+      </div>
+    </figure>
+    <section class="product-content">
+      <span class="category-badge"><i class="fa-solid fa-pepper-hot"></i>category</span>
+      <h1 class="product-title">Product Name</h1>
+      <p class="product-price">$20</p>
+      <p class="product-description">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.</p>
+      <div>
+        <h2 class="section-heading">Size</h2>
+        <div class="size-selector">
+          <span class="size-option active">S</span>
+          <span class="size-option">M</span>
+          <span class="size-option">L</span>
+          <span class="size-option">XL</span>
+        </div>
+      </div>
+      <div>
+        <h2 class="section-heading">Quantity</h2>
+        <div class="quantity-control">
+          <button class="quantity-button" aria-label="Decrease quantity">
+            <i class="fa-solid fa-minus"></i>
+          </button>
+          <span class="quantity-value">1</span>
+          <button class="quantity-button" aria-label="Increase quantity">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <button class="primary-action">
+        <i class="fa-solid fa-cart-shopping"></i>
+        Add to cart
+      </button>
+    </section>
+  </article>
+</body>
+</html>
